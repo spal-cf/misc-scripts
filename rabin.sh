@@ -36,6 +36,8 @@ rabin2 -zz ./Skylight 2>/dev/null  | grep -i "loadFileURL"
 # Testing deprecated methods
 rabin2 -zzq Skylight 2>/dev/null | grep -i "openurl"
 
+rabin2 -zq Skylight 2>/dev/null | grep -i "activityitems"
+
 
 # https://mas.owasp.org/MASTG/tests/ios/MASVS-PLATFORM/MASTG-TEST-0075/#using-frida_1
 
@@ -46,6 +48,10 @@ grep -A 5 -nri urlsch Info.plist
 grep -i CFBundleURLTypes -A25 Info.plist
 
 ldid -e Skylight
+
+codesign -dv Skylight
+
+dsymutil -s Skylight | grep N_OSO
 
 # frida -U Skylight --codeshare mrmacete/objc-method-observer 
 # observeSomething("*[* *openURL*]");
@@ -67,4 +73,6 @@ ldid -e Skylight
 # frida --codeshare dki/ios-url-scheme-fuzzing -U Skylight
 # dumpSchemes();
 # fuzz("workspaces://{0}");
+
+# frida-trace -U Skylight -m "*[* *restorationHandler*]" -i "*open*Url*" -m "*[* *application*URL*]" -m "*[* openURL]"
 
