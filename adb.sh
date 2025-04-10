@@ -46,3 +46,5 @@ act=$(aapt dump badging $1|awk -F" " '/launchable-activity/ {print $2}'|awk -F"'
 adb shell am start -n $pkg/$act
 
 # adb-run.sh myapp.apk
+
+# https://github.com/inesmartins/Android-App-Link-Verification-Tester/tree/main
