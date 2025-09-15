@@ -2,9 +2,11 @@
 
 set -v
 
+#Unzip analytics.ipa
+#cd Payloads
 app_pkg=GoogleAnalytics.app
 app_binary=GoogleAnalytics
-binary_path=$app_pkg/$app_binary 
+binary_path=$app_pkg/$app_binary
 
 # Checking PIE (Position Independent Executable) - It should include the PIE flag
 # PIC - https://mas.owasp.org/MASTG/tests-beta/ios/MASVS-CODE/MASTG-TEST-0228/
@@ -54,3 +56,56 @@ otool -L $binary_path
 otool -L $binary_path | grep -i LocalAuthentication
 
 ldid -e $binary_path
+
+
+
+mkdir out
+
+strings $binary_path > strings-analytics.txt
+
+grep -ri shell strings-analytics.txt --color=always > out/shell.txt
+grep -ri api strings-analytics.txt --color=always > out/api.txt
+grep -ri database strings-analytics.txt --color=always > out/database.txt
+grep -ri query strings-analytics.txt --color=always > out/query.txt
+grep -ri post strings-analytics.txt --color=always > out/post.txt
+grep -ri get strings-analytics.txt --color=always > out/get.txt
+grep -ri config strings-analytics.txt --color=always > out/config.txt
+grep -ri auth strings-analytics.txt --color=always > out/auth.txt
+grep -ri password strings-analytics.txt --color=always > out/password.txt
+grep -ri singleton strings-analytics.txt --color=always > out/singleton.txt
+grep -ri secret strings-analytics.txt --color=always > out/secret.txt
+grep -ri http strings-analytics.txt --color=always > out/http.txt
+grep -ri https: strings-analytics.txt --color=always > out/http.txt
+
+
+grep -i UsageDescription -A25 $app_pkg/Info.plist
+grep -i NSAppTransportSecurity $app_pkg/Info.plist
+grep -i UTExportedTypeDeclarations $app_pkg/Info.plist
+grep -i UTImportedTypeDeclarations $app_pkg/Info.plist
+grep -i CFBundleURLTypes -A25 $app_pkg/Info.plist
+
+
+
+getCryptAlgorithmClass
+getCryptAlgorithmType
+
+rabin2 -zz $binary_path | egrep "UIWebView$"
+rabin2 -zz $binary_path | egrep "WKWebView$"
+rabin2 -zzq $binary_path | egrep "WKWebView.*frame"
+rabin2 -zz $binary_path | grep -i "javascriptenabled"
+rabin2 -zz $binary_path | grep -i "hasonlysecurecontent"
+
+rabin2 -I $binary_path
+
+
+otool -L $binary_path
+
+otool -L $binary_path | grep -i LocalAuthentication
+
+#dumps the binary's entitlements
+
+ldid -e $binary_path
+
+codesign -dv $binary_path
+
+dsymutil -s $binary_path | grep N_OSO
