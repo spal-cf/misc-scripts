@@ -12,3 +12,7 @@ objection -g $app_binary run android hooking list receivers
 objection -g $app_binary run android memory list modules
 
 objection -g $app_binary run android keystore list
+
+objection -g $app_binary run android hooking search classes com.google.android.apps.giant
+
+android intent launch_activity com.google.android.gms.auth.api.signin.internal.SignInHubActivity
