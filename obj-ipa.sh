@@ -17,3 +17,11 @@ objection -g $app_binary run ios cookies get
 objection -g $app_binary run  memory list modules
 
 objection -g $app_binary run ios hooking search classes cloudbi
+
+
+##!/bin/bash
+#
+#set -v
+#
+#app_binary=com.google.cloudbi 
+#echo exit | objection -g $app_binary explore  -c ios-obj-cmds.txt
