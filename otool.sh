@@ -94,6 +94,8 @@ rabin2 -zz $binary_path | egrep "WKWebView$"
 rabin2 -zzq $binary_path | egrep "WKWebView.*frame"
 rabin2 -zz $binary_path | grep -i "javascriptenabled"
 rabin2 -zz $binary_path | grep -i "hasonlysecurecontent"
+rabin2 -zz $binary_path | grep -i "loadHTMLString"
+rabin2 -zz $binary_path | grep -i "loadFileURL"
 
 rabin2 -I $binary_path
 
