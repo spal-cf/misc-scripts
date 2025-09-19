@@ -1,0 +1,16 @@
+env
+ios info binary
+ios bundles list_bundles --full-path 
+ios bundles list_frameworks
+ios nsuserdefaults get
+ios nsurlcredentialstorage dump
+ios plist cat Info.plist
+
+ios keychain dump keychain.json
+ios cookies get
+
+memory list exports
+
+memory list modules --json modules.json 
+
+ios hooking search classes cloudbi
