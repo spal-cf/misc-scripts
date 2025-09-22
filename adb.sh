@@ -9,6 +9,13 @@ find ./ -name backup_rules.xml
 grep -i backup AndroidManifest.xml 
 grep -i fullBackupContent AndroidManifest.xml 
 grep -i dataExtractionRules AndroidManifest.xml
+grep -i debuggable AndroidManifest.xml
+
+cat apktool.yml | grep -i -A2 sdkinfo
+
+
+for i in $(ls lib/x86_64/); do echo $i; rabin2 -I lib/x86_64/$i | grep -E "canary"; done
+
 
 content query --uri content://media/external/file --projection _data | grep -i workspaces
 
