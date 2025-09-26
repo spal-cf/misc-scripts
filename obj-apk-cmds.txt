@@ -1,0 +1,12 @@
+ls
+env
+android hooking list classes
+android hooking list activities
+android hooking list services
+android hooking list receivers
+android hooking get current_activity
+memory list modules
+android keystore list
+android hooking search classes cloudbi
+android hooking search classes Auth
+android intent launch_activity com.google.android.gms.auth.api.signin.internal.SignInHubActivity
