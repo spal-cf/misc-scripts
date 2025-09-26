@@ -55,3 +55,20 @@ adb shell am start -n $pkg/$act
 # adb-run.sh myapp.apk
 
 # https://github.com/inesmartins/Android-App-Link-Verification-Tester/tree/main
+
+
+grep -ri shell * --color=always > ../out/shell.txt
+grep -ri api * --color=always > ../out/api.txt
+grep -ri database * --color=always > ../out/database.txt
+grep -ri query * --color=always > ../out/query.txt
+grep -ri post * --color=always > ../out/post.txt
+grep -ri get * --color=always > ../out/get.txt
+grep -ri config * --color=always > ../out/config.txt
+grep -ri auth * --color=always > ../out/auth.txt
+grep -ri secret * --color=always > ../out/secret.txt
+grep -ri password * --color=always > ../out/password.txt
+grep -ri singleton * --color=always > ../out/singleton.txt
+grep -ri http * --color=always > ../out/http.txt
+grep -ri https * --color=always > ../out/https.txt
+grep -ri key * --color=always > ../out/key.txt
+
