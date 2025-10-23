@@ -104,6 +104,8 @@ otool -L $binary_path
 
 otool -L $binary_path | grep -i LocalAuthentication
 
+cat $app_pkg/Info.plist
+
 #dumps the binary's entitlements
 
 ldid -e $binary_path > ent.xml
