@@ -6,7 +6,8 @@ ios nsuserdefaults get
 ios nsurlcredentialstorage dump
 ios plist cat Info.plist
 
-ios keychain dump keychain.json
+ios keychain dump
+ios keychain dump --json keychain.json
 ios cookies get
 
 memory list exports
