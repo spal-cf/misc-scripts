@@ -2,11 +2,11 @@
 
 set -v
 
-#Unzip analytics.ipa
+Unzip cloudconsole.ipa
 #cd Payloads
-app_pkg=GoogleAnalytics.app
-app_binary=GoogleAnalytics
-binary_path=$app_pkg/$app_binary
+app_pkg=Vespa.app
+app_binary=Vespa
+binary_path=cloudconsole/Payload/$app_pkg/$app_binary
 
 # Checking PIE (Position Independent Executable) - It should include the PIE flag
 # PIC - https://mas.owasp.org/MASTG/tests-beta/ios/MASVS-CODE/MASTG-TEST-0228/
@@ -89,13 +89,33 @@ grep -i CFBundleURLTypes -A25 $app_pkg/Info.plist
 getCryptAlgorithmClass
 getCryptAlgorithmType
 
+# https://mas.owasp.org/MASTG/tests/ios/MASVS-PLATFORM/MASTG-TEST-0076/#wkwebview
+
 rabin2 -zz $binary_path | egrep "UIWebView$"
 rabin2 -zz $binary_path | egrep "WKWebView$"
 rabin2 -zzq $binary_path | egrep "WKWebView.*frame"
 rabin2 -zz $binary_path | grep -i "javascriptenabled"
 rabin2 -zz $binary_path | grep -i "hasonlysecurecontent"
+
+# https://mas.owasp.org/MASTG/tests/ios/MASVS-PLATFORM/MASTG-TEST-0077/#testing-how-webviews-load-content
+
 rabin2 -zz $binary_path | grep -i "loadHTMLString"
 rabin2 -zz $binary_path | grep -i "loadFileURL"
+
+# Testing deprecated methods
+rabin2 -zzq $binary_path 2>/dev/null | grep -i "openurl"
+
+rabin2 -zq $binary_path 2>/dev/null | grep -i "activityitems"
+
+
+# https://mas.owasp.org/MASTG/tests/ios/MASVS-PLATFORM/MASTG-TEST-0075/#using-frida_1
+
+grep -A 5 -nri LSApplicationQueriesSchemes Info.plist
+
+grep -A 5 -nri urlsch Info.plist
+
+grep -i CFBundleURLTypes -A25 Info.plist
+
 
 rabin2 -I $binary_path
 
