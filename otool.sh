@@ -7,6 +7,7 @@ Unzip cloudconsole.ipa
 app_pkg=Vespa.app
 app_binary=Vespa
 binary_path=cloudconsole/Payload/$app_pkg/$app_binary
+pkg_path=cloudconsole/Payload/$app_pkg
 
 # Checking PIE (Position Independent Executable) - It should include the PIE flag
 # PIC - https://mas.owasp.org/MASTG/tests-beta/ios/MASVS-CODE/MASTG-TEST-0228/
@@ -78,11 +79,11 @@ grep -ri http strings-analytics.txt --color=always > out/http.txt
 grep -ri https: strings-analytics.txt --color=always > out/http.txt
 
 
-grep -i UsageDescription -A25 $app_pkg/Info.plist
-grep -i NSAppTransportSecurity $app_pkg/Info.plist
-grep -i UTExportedTypeDeclarations $app_pkg/Info.plist
-grep -i UTImportedTypeDeclarations $app_pkg/Info.plist
-grep -i CFBundleURLTypes -A25 $app_pkg/Info.plist
+grep -i UsageDescription -A25 $pkg_path/Info.plist
+grep -i NSAppTransportSecurity $pkg_path/Info.plist
+grep -i UTExportedTypeDeclarations $pkg_path/Info.plist
+grep -i UTImportedTypeDeclarations $pkg_path/Info.plist
+grep -i CFBundleURLTypes -A25 $pkg_path/Info.plist
 
 
 
@@ -110,11 +111,11 @@ rabin2 -zq $binary_path 2>/dev/null | grep -i "activityitems"
 
 # https://mas.owasp.org/MASTG/tests/ios/MASVS-PLATFORM/MASTG-TEST-0075/#using-frida_1
 
-grep -A 5 -nri LSApplicationQueriesSchemes Info.plist
+grep -A 5 -nri LSApplicationQueriesSchemes $pkg_path/Info.plist
 
-grep -A 5 -nri urlsch Info.plist
+grep -A 5 -nri urlsch $pkg_path/Info.plist
 
-grep -i CFBundleURLTypes -A25 Info.plist
+grep -i CFBundleURLTypes -A25 $pkg_path/Info.plist
 
 
 rabin2 -I $binary_path
@@ -124,7 +125,7 @@ otool -L $binary_path
 
 otool -L $binary_path | grep -i LocalAuthentication
 
-cat $app_pkg/Info.plist
+cat $pkg_path/Info.plist
 
 #dumps the binary's entitlements
 
