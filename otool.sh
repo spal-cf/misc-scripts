@@ -137,7 +137,7 @@ dsymutil -s $binary_path | grep N_OSO
 
 
 # assuming you have extracted the entitlements to ent.xml
-doms=$(plutil -extract com.apple.developer.associated-domains xml1 -o - ent.xml | \
+doms=$(plutil -extract 'com\.apple\.developer\.associated-domains' xml1 -o - ent.xml | \
        grep -oE 'applinks:[^<]+' | cut -d':' -f2)
 for d in $doms; do
   echo "[+] Fetching AASA for $d";
