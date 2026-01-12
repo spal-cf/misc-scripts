@@ -240,7 +240,7 @@ if __name__ == "__main__":
     run_command("apkid apks/base.apk")
     
     out_dir = "out"
-    os.makedirs(apk_dir, exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
     run_command("grep -ri shell apks/Payload/* --color=always > out/shell.txt")
     run_command("grep -ri api apks/Payload/* --color=always > out/api.txt")
     run_command("grep -ri database apks/Payload/* --color=always > out/database.txt")
