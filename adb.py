@@ -265,5 +265,7 @@ if __name__ == "__main__":
     print(act)
     run_command("adb shell am start -W -n " + pkg + "/" + act)
     run_command("adb shell dumpsys meminfo | tee mem.txt")
+
+    run_command("adb shell pm get-app-links " + pkg_id)
     
     
