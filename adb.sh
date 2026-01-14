@@ -78,5 +78,5 @@ adb shell ls -la /data/user/0/$pkg/files
 adb shell ls -la /data/user/0/$pkg/shared_prefs
 adb shell ls -la /storage/emulated/0/Android/data/$pkg/cache
 adb shell ls -la /data/user/0/$pkg/code_cache
-adb shell ls -la /data/user/0/$pkg/code 
+adb shell ls -la /data/user/0/$pkg/cache 
 
