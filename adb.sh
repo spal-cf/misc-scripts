@@ -72,3 +72,11 @@ grep -ri http * --color=always > ../out/http.txt
 grep -ri https * --color=always > ../out/https.txt
 grep -ri key * --color=always > ../out/key.txt
 
+adb shell ls -la /data/user/0/$pkg/
+adb shell ls -la /data/user/0/$pkg/*
+adb shell ls -la /data/user/0/$pkg/files
+adb shell ls -la /data/user/0/$pkg/shared_prefs
+adb shell ls -la /storage/emulated/0/Android/data/$pkg/cache
+adb shell ls -la /data/user/0/$pkg/code_cache
+adb shell ls -la /data/user/0/$pkg/code 
+
